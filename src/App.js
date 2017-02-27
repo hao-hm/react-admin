@@ -72,7 +72,7 @@ class App extends Component {
               <Breadcrumb.Item>User</Breadcrumb.Item>
               <Breadcrumb.Item>Bill</Breadcrumb.Item>
             </Breadcrumb>
-            <div style={{padding: 24, background: '#fff', minHeight: 200}}>
+            <div style={{padding: 24, background: '#fff', minHeight: 500}}>
               {this.props.children}
             </div>
           </Content>
