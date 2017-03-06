@@ -14,6 +14,8 @@ import UserRoute from './user/UserRoute'
 export default {
   childRoutes: [{
     path: '/',
+    name: 'home',
+    breadcrumbName: 'Home',
     component: App,
     indexRoute: {component: HomePage},
     childRoutes: [

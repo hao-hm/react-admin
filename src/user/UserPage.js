@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import {Breadcrumb} from 'antd';
 import UserList from  './UserList'
 import UserDetail from  './UserDetail'
+import AppContent from '../common/AppContent'
 
 class UserPage extends Component {
   constructor(props) {
@@ -8,10 +10,9 @@ class UserPage extends Component {
   }
   render() {
     return (
-      <div>
+      <AppContent>
         <UserList/>
-        {this.props.children}
-      </div>
+      </AppContent>
     );
   }
 }

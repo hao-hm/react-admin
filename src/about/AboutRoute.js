@@ -2,6 +2,8 @@
 
 export default {
   path: 'about',
+  name: 'about',
+  breadcrumbName: 'About',
   // component: AboutPage
   getComponent(nextState, cb) {
     require.ensure([], (require) => {

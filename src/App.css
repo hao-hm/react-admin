@@ -4,9 +4,10 @@
   height: 100%;
 }
 
-.logo .logo-img {
-  height: 32px;
-  margin: 13px;
+.logo {
+  height: 31px;
+  margin: 16px 0;
+  float: left;
   animation: App-logo-spin infinite 20s linear;
 }
 
@@ -15,14 +16,8 @@
   to { transform: rotate(360deg); }
 }
 
-.ant-layout-sider-collapsed .anticon {
-  font-size: 16px;
-}
-
-.ant-layout-sider-collapsed .nav-text {
-  display: none;
-}
-
-.ant-layout-sider-collapsed .ant-menu-submenu-vertical > .ant-menu-submenu-title:after {
-  display: none;
+.header{
+  background: #fff;
+  position: fixed;
+  width: 100%;
 }
