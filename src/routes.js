@@ -7,6 +7,7 @@ import AboutRoute from './about/AboutRoute'
 // import UserPage from './user/UserPage'
 import UserRoute from './user/UserRoute'
 //import NotFoundPage from './not-found/NotFoundPage'
+import categoryRoute from './category/categoryRoute'
 
 //Webpack code splitting with Create React App and React Router
 //More info: https://www.drewbolles.com/blog/2016/11/14/webpack-code-splitting-with-create-react-app-react-router/
@@ -20,7 +21,8 @@ export default {
     indexRoute: {component: HomePage},
     childRoutes: [
       AboutRoute,
-      UserRoute
+      UserRoute,
+      categoryRoute
     ]
   }]
 };
