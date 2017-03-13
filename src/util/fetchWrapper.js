@@ -12,11 +12,7 @@ function fetchWrapper(url, method = 'get', body) {
         return Promise.reject(json);
       }
       return json;
-    })
-    .then(
-      response => response,
-      error => error
-    );
+    });
 }
 
 

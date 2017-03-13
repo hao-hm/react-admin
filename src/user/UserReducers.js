@@ -5,7 +5,7 @@ import {
 } from './UserActions';
 
 const INITIAL_STATE = {
-  data: {},
+  data: [],
   currentPage: 1,
   loading: 0,
   error: '',

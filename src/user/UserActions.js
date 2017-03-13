@@ -46,7 +46,7 @@ export function requestError(error) {
 export function fetchData(page = 1) {
   return (dispatch) => {
     dispatch(requestStart());
-    return fetch(`/api/users?page=${page}`)
+    return fetch(`/users?page=${page}`)
       .then(response => response.json())
       .then(res => dispatch(fetchSuccess(res)))
       .catch(error => dispatch(requestError(error)))

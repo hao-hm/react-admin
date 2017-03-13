@@ -25,32 +25,18 @@ class Users extends Component {
   };
   render() {
     const {data, loading} = this.props;
-    const dataSource = data.data;
-    const pagination = {
-      total: data.total,
-      current: parseInt(data.page)
-    };
+
     const columns = [
       {
-        title: 'Avatar',
-        dataIndex: 'avatar',
-        key: 'avatar',
-        render: (text, record) => (
-          <div>
-            <img alt="avatar" style={{ width: 50 }} src={record.avatar}/>
-          </div>
-        )
-      },
-      {
-        title: 'First Name',
-        dataIndex: 'first_name',
-        key: 'first_name',
+        title: 'Name',
+        dataIndex: 'name',
+        key: 'name',
         render: (text, record) => <Link to={`/user/${record.id}`}>{text}</Link>,
       },
       {
-        title: 'Last Name',
-        dataIndex: 'last_name',
-        key: 'last_name',
+        title: 'Email',
+        dataIndex: 'email',
+        key: 'email',
       },
       {
         title: 'Action',
@@ -67,7 +53,7 @@ class Users extends Component {
       }
     ];
     return (
-      <Table columns={columns} loading={loading>0} dataSource={dataSource} pagination={pagination} rowKey="id" onChange={this.handleTableChange}/>
+      <Table columns={columns} loading={loading>0} dataSource={data} rowKey="id" onChange={this.handleTableChange}/>
     );
   }
 }

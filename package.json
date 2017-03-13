@@ -2,7 +2,7 @@
   "name": "react-admin",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://reqres.in/",
+  "proxy": "http://58c4b291ec87b01200f8e827.mockapi.io/api/v1/",
   "devDependencies": {
     "react-scripts": "0.8.5"
   },
@@ -13,6 +13,7 @@
     "react-redux": "^4.0.0",
     "react-router": "^3.0.2",
     "redux": "^3.6.0",
+    "redux-logger": "^2.8.2",
     "redux-thunk": "^2.2.0"
   },
   "scripts": {
