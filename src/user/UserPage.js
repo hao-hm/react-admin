@@ -10,9 +10,9 @@ class UserPage extends Component {
   }
   render() {
     return (
-      <AppContent>
+      <div>
         <UserList/>
-      </AppContent>
+      </div>
     );
   }
 }

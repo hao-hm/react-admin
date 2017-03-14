@@ -27,10 +27,10 @@ class CategoryPage extends Component {
 
   render() {
     return (
-      <AppContent>
+      <div>
         <CategoryHeader/>
         {this.renderContent()}
-      </AppContent>
+      </div>
     );
   }
 }

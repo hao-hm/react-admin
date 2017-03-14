@@ -4,8 +4,7 @@ import {Link} from 'react-router';
 import logo from './logo.svg';
 import {Layout, Breadcrumb, Menu, Icon} from 'antd';
 const {Header, Content, Footer, Sider} = Layout;
-const { SubMenu } = Menu;
-
+const {SubMenu} = Menu;
 
 
 class App extends Component {
@@ -14,13 +13,13 @@ class App extends Component {
     this.state = {
       collapsed: false,
       mode: 'inline',
-      selectedKeys: []
-    };
+      selectedKeys: [],
+      sidebar: [
+        {name: 'User', key: 'user', path: '/user', icon: 'user'},
+        {name: 'Catalog', key: 'catalog', icon: 'link', children: [{name: 'Category', key: 'category', path: '/category'}, {name: 'Product', key:  'product',path: '/product'}]}
+      ]
+    }
   }
-
-  static contextTypes = {
-    router: React.PropTypes.object
-  };
 
   onCollapse = (collapsed) => {
     console.log(collapsed);
@@ -38,6 +37,21 @@ class App extends Component {
     const {route, routes} = this.props;
     const module = location && location.pathname.replace(/(^\/|\/$)/g, '');
     let activeMenuItem = module || 'home';
+
+    const menuItems = this.state.sidebar.map((item, i) => {
+      if(item.children){
+        return (
+          <SubMenu key={item.key} title={<span><Icon type={item.icon} />{item.name}</span>}>
+            {item.children.map(function(subMenu, i) {
+              return <Menu.Item key={subMenu.key}><Link to={subMenu.path}><span>{subMenu.icon && <Icon type={subMenu.icon} />}{subMenu.name}</span></Link></Menu.Item>
+            })}
+          </SubMenu>
+        )
+      }else{
+        return <Menu.Item key={item.key}><Link to={item.path}><span><Icon type={item.icon} />{item.name}</span></Link></Menu.Item>
+      }
+    });
+
     return (
       <Layout style={{height: '100%'}}>
         <Header className="header">
@@ -73,8 +87,22 @@ class App extends Component {
           </Menu>
         </Header>
         <Content style={{ padding: '0 50px', marginTop: 64 }}>
-          <Breadcrumb style={{ margin: '12px 0' }} routes={routes} />
-          {this.props.children}
+          <Breadcrumb style={{ margin: '12px 0' }} routes={routes}/>
+          <Layout style={{ padding: '24px 0', background: '#fff' }}>
+            <Sider width={200} style={{ background: '#fff' }}>
+              <Menu
+                mode="inline"
+                defaultSelectedKeys={['1']}
+                defaultOpenKeys={['sub1']}
+                style={{ height: '100%' }}
+              >
+                {menuItems}
+              </Menu>
+            </Sider>
+            <Content style={{ padding: '0 24px', minHeight: 280 }}>
+              {this.props.children}
+            </Content>
+          </Layout>
         </Content>
 
         <Footer style={{ textAlign: 'center' }}>

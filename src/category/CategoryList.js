@@ -48,6 +48,8 @@ class CategoryList extends Component {
       {
         title: 'Action',
         key: 'action',
+        fixed: 'right',
+        width: 100,
         render: (text, record) => (
           <span>
             <a href="#" onClick={()=>this.onEditClick(record)}>Edit</a>
