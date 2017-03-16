@@ -1,21 +1,30 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux';
-import {action} from './categoryActions';
-import {VIEW_MODE, CREATE_MODE, EDIT_MODE} from '../util/actionType';
+import action from '../actions';
+import categoryAction from '../../category/actions'
+import selector from '../selector';
+import categorySelector from '../../category/selector';
+import {VIEW_MODE, CREATE_MODE, EDIT_MODE} from '../../util/actionType';
 import { Form, Select, Input, Button } from 'antd';
 const FormItem = Form.Item;
+const Option = Select.Option;
 
-class CategoryForm extends Component {
+class ProductForm extends Component {
   constructor(props) {
     super(props);
 
     const current = this.props.current || {};
     this.state = {
       name: current.name,
-      description: current.description
+      description: current.description,
+      categories: current.categories
     };
   }
+  componentWillMount() {
+    this.props.categoryAction.fetch()
+  }
+
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
@@ -45,6 +54,10 @@ class CategoryForm extends Component {
     this.props.action.setCurrent(null);
   };
 
+  handleChangeCategories = (value) => {
+    console.log(value)
+  };
+
   render() {
     const { getFieldDecorator } = this.props.form;
     const formItemLayout = {
@@ -52,11 +65,12 @@ class CategoryForm extends Component {
       wrapperCol: { span: 14 }
     };
     const state = this.state;
+
     return (
       <Form onSubmit={this.handleSubmit}>
         <FormItem {...formItemLayout} label="Name">
           {getFieldDecorator('name', {
-            rules: [{ required: true, message: 'Please input category name!' }],
+            rules: [{ required: true, message: 'Please input product name!' }],
             initialValue: state.name
           })(
             <Input />
@@ -65,15 +79,32 @@ class CategoryForm extends Component {
 
         <FormItem {...formItemLayout} label="Description">
           {getFieldDecorator('description', {
-            rules: [{ required: true, message: 'Please input category description!' }],
+            rules: [{ required: true, message: 'Please input product description!' }],
             initialValue: state.description
           })(
             <Input />
           )}
         </FormItem>
 
+        <FormItem {...formItemLayout} label="Categories">
+          {getFieldDecorator('categories', {
+            rules: [{ required: true, message: 'Please select categories!' }],
+            initialValue: state.categories
+          })(
+            <Select
+              multiple
+              placeholder="Please select"
+              onChange={this.handleChangeCategories}
+            >
+              {this.props.categories.map((category) => (
+                <Option key={category.id}>{category.name}</Option>
+              ))}
+            </Select>
+          )}
+        </FormItem>
+
         <FormItem wrapperCol={{ span: 8, offset: 4 }}>
-          <Button type="primary" htmlType="submit">Submit</Button>
+          <Button type="primary" loading={this.props.loading > 0} htmlType="submit">Submit</Button>
           <Button onClick={this.handleCancel}>Cancel</Button>
         </FormItem>
       </Form>
@@ -82,12 +113,15 @@ class CategoryForm extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  current: state.category.current,
-  mode: state.category.mode
+  current: selector.getCurrentItem(state),
+  mode: selector.getCurrentMode(state),
+  loading: selector.getLoading(state),
+  categories: categorySelector.getData(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  action: bindActionCreators(action, dispatch)
+  action: bindActionCreators(action, dispatch),
+  categoryAction: bindActionCreators(categoryAction, dispatch)
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Form.create()(CategoryForm));
+export default connect(mapStateToProps, mapDispatchToProps)(Form.create()(ProductForm));

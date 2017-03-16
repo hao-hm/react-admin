@@ -40,10 +40,10 @@ export default function generateAction({module, api}) {
 
   };
 
-  action.fetch = ({url, page} = {}) => async (dispatch) => {
+  action.fetch = ({url, page, sortField, sortOrder} = {}) => async (dispatch) => {
     try {
       dispatch(action.fetchStart());
-      let data = await fetchWrapper(`${url || api}?p=${page || 1}`);
+      let data = await fetchWrapper(`${url || api}?p=${page || 1}&sortBy=${sortField}&order=${sortOrder}`);
       dispatch(action.fetchSuccess(data, page));
     } catch(error) {
       dispatch(action.fetchError(error));

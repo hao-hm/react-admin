@@ -2,8 +2,9 @@ import React, {Component} from 'react';
 import {Link} from 'react-router';
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux';
-import {action} from './categoryActions';
-import {EDIT_MODE} from '../util/actionType'
+import action from '../actions';
+import selector from  '../selector'
+import {EDIT_MODE} from '../../util/actionType'
 import {Table, Popconfirm, Alert, message} from 'antd';
 
 class CategoryList extends Component {
@@ -22,7 +23,11 @@ class CategoryList extends Component {
   };
 
   handleTableChange = (pagination, filters, sorter) => {
-    this.props.action.fetch({page: pagination.current});
+    this.props.action.fetch({
+      page: pagination.current,
+      sortField: sorter.field,
+      sortOrder: sorter.order
+    });
   };
 
   onEditClick = (item) => {
@@ -38,12 +43,20 @@ class CategoryList extends Component {
         title: 'Name',
         dataIndex: 'name',
         key: 'name',
+        sorter: true,
         render: (text, record) => <Link to={`/category/${record.id}`}>{text}</Link>,
       },
       {
         title: 'Description',
         dataIndex: 'description',
         key: 'description',
+      },
+      {
+        title: 'Created At',
+        dataIndex: 'createdAt',
+        key: 'createdAt',
+        sorter: true,
+        render: (text, record) => (new Date(text)).toLocaleDateString(),
       },
       {
         title: 'Action',
@@ -76,9 +89,9 @@ class CategoryList extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    data: state.category.data,
-    loading: state.category.loading,
-    error: state.category.error
+    data: selector.getData(state),
+    loading: selector.getLoading(state),
+    error: selector.getError(state)
   };
 };
 

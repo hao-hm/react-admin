@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux'
-import AppContent from '../common/AppContent'
+import AppContent from '../../common/AppContent'
 import CategoryList from './CategoryList'
-import {getCurrentMode} from './categoryReducers';
+import selector from '../selector';
 import CategoryHeader from './CategoryHeader';
 import CategoryForm from './CategoryForm';
-
-import {CREATE_MODE, EDIT_MODE} from '../util/actionType';
+import {CREATE_MODE, EDIT_MODE} from '../../util/actionType';
 
 class CategoryPage extends Component {
   constructor(props) {
@@ -38,7 +37,7 @@ class CategoryPage extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    mode: getCurrentMode(state)
+    mode: selector.getCurrentMode(state)
   };
 };
 

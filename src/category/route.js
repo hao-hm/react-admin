@@ -3,7 +3,7 @@ export default {
   breadcrumbName: 'Category',
   getComponent(nextState, cb) {
     require.ensure([], (require) => {
-      cb(null, require('./CategoryPage').default)
+      cb(null, require('./components/CategoryPage').default)
     })
   }
 };
