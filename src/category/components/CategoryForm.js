@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux';
 import action from '../actions';
@@ -10,7 +10,6 @@ const FormItem = Form.Item;
 class CategoryForm extends Component {
   constructor(props) {
     super(props);
-
     const current = this.props.current || {};
     this.state = {
       name: current.name,
@@ -21,7 +20,6 @@ class CategoryForm extends Component {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
         if(this.isCreate()){
           this.props.action.create({request: values})
         }else{
@@ -74,7 +72,7 @@ class CategoryForm extends Component {
         </FormItem>
 
         <FormItem wrapperCol={{ span: 8, offset: 4 }}>
-          <Button type="primary" loading={this.props.loading > 0} htmlType="submit">Submit</Button>
+          <Button type="primary" loading={this.props.loading} htmlType="submit">Submit</Button>
           <Button onClick={this.handleCancel}>Cancel</Button>
         </FormItem>
       </Form>
@@ -82,10 +80,17 @@ class CategoryForm extends Component {
   }
 }
 
+//prop types
+CategoryForm.propTypes = {
+  mode: PropTypes.string.isRequired,
+  loading: PropTypes.bool.isRequired
+};
+
+///////////////////
 const mapStateToProps = (state) => ({
   current: selector.getCurrentItem(state),
   mode: selector.getCurrentMode(state),
-  loading: selector.getLoading(state)
+  loading: selector.getLoading(state) > 0
 });
 
 const mapDispatchToProps = (dispatch) => ({

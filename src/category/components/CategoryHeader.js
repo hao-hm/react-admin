@@ -1,25 +1,26 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux';
-import { Button } from 'antd';
 import action from '../actions';
 import selector from '../selector';
-import {VIEW_MODE, CREATE_MODE} from '../../util/actionType';
+import AppHeader from '../../common/AppHeader'
+import {CREATE_MODE} from '../../util/actionType';
 
 const CategoryHeader = ({action, mode}) => {
-
-  const onCreateClick = ()=>{
-    action.changeMode(CREATE_MODE)
-  };
-
-  return mode === VIEW_MODE && (
-    <div style={{ marginBottom: 16, textAlign: 'right' }}>
-      <h2 style={{float: 'left' }}>Categories</h2>
-      <Button type="primary" onClick={onCreateClick}>Create</Button>
-    </div>
-  )
+  const title = 'Categories';
+  const buttons = [
+    {name: 'Create', type: 'primary', onClick: () => action.changeMode(CREATE_MODE)}
+  ];
+  return <AppHeader buttons={buttons} mode={mode} title={title}/>;
 };
 
+//prop types
+CategoryHeader.propTypes = {
+  action: PropTypes.object.isRequired,
+  mode: PropTypes.string.isRequired
+};
+
+///////////////////
 const mapStateToProps = (state) => {
   return {
     mode: selector.getCurrentMode(state)

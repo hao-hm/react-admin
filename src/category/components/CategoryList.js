@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux';
@@ -87,6 +87,14 @@ class CategoryList extends Component {
 }
 
 
+//prop types
+CategoryList.propTypes = {
+  data: PropTypes.array.isRequired,
+  loading: PropTypes.bool.isRequired,
+  error: PropTypes.string.isRequired
+};
+
+///////////////
 const mapStateToProps = (state) => {
   return {
     data: selector.getData(state),
