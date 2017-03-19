@@ -6,12 +6,19 @@ import selector from '../selector';
 import AppHeader from '../../common/AppHeader'
 import {CREATE_MODE} from '../../util/actionType';
 
-const CategoryHeader = ({action, mode}) => {
-  const title = 'Categories';
-  const buttons = [
-    {name: 'Create', type: 'primary', onClick: () => action.changeMode(CREATE_MODE)}
-  ];
-  return <AppHeader buttons={buttons} mode={mode} title={title}/>;
+const CategoryHeader = ({action, mode, search}) => {
+  const headerData = {
+    title: 'Categories',
+    buttons: [
+      {name: 'Create', type: 'primary', onClick: () => action.changeMode(CREATE_MODE)}
+    ],
+    mode,
+    search,
+    onSearch: function (value) {
+      action.fetch({search: value})
+    }
+  };
+  return <AppHeader {...headerData}/>;
 };
 
 //prop types
@@ -23,7 +30,8 @@ CategoryHeader.propTypes = {
 ///////////////////
 const mapStateToProps = (state) => {
   return {
-    mode: selector.getCurrentMode(state)
+    mode: selector.getCurrentMode(state),
+    search: selector.getSearch(state)
   };
 };
 

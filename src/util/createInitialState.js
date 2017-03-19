@@ -6,6 +6,7 @@ export default function () {
     loading: 0,
     error: null,
     current: null,
-    mode: VIEW_MODE
+    mode: VIEW_MODE,
+    search: ''
   };
 }

@@ -34,10 +34,12 @@ class CategoryList extends Component {
     this.props.action.setCurrent(item);
     this.props.action.changeMode(EDIT_MODE);
   };
-  
+
+
   render() {
     const {data, loading, error} = this.props;
 
+    const rowSelection = {};
     const columns = [
       {
         title: 'Name',
@@ -78,8 +80,8 @@ class CategoryList extends Component {
     return (
       <div>
         {error && (<Alert message={error} type="error" />)}
-        <Table columns={columns} loading={loading > 0} dataSource={data} rowKey="id"
-               onChange={this.handleTableChange}/>
+        <Table columns={columns} loading={loading} dataSource={data} rowKey="id"
+               onChange={this.handleTableChange} rowSelection={rowSelection}/>
       </div>
 
     );
@@ -90,15 +92,14 @@ class CategoryList extends Component {
 //prop types
 CategoryList.propTypes = {
   data: PropTypes.array.isRequired,
-  loading: PropTypes.bool.isRequired,
-  error: PropTypes.string.isRequired
+  loading: PropTypes.bool.isRequired
 };
 
 ///////////////
 const mapStateToProps = (state) => {
   return {
     data: selector.getData(state),
-    loading: selector.getLoading(state),
+    loading: selector.getLoading(state)>0,
     error: selector.getError(state)
   };
 };

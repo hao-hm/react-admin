@@ -21,7 +21,7 @@ export function createReducers(initialState, module) {
         return {...state, loading: state.loading + 1 };
 
       case ACTION_TYPE.FETCH_SUCCESS:
-        return {...state, data: action.data, page: action.page, loading: state.loading - 1, error: null};
+        return {...state, data: action.data, page: action.page, search: action.search, loading: state.loading - 1, error: null};
 
       case ACTION_TYPE.DELETE_SUCCESS:
       case ACTION_TYPE.CREATE_SUCCESS:
