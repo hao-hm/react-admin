@@ -5,7 +5,10 @@ import AppContent from '../common/AppContent'
 class HomePage extends Component {
   render() {
     return (
-      <div>Home</div>
+      <div>
+        <h1>Home</h1>
+        <p>coming soon!</p>
+      </div>
     );
   }
 }

@@ -20,7 +20,7 @@ class AppHeader extends Component {
   render() {
     const {mode, buttons, title, search} = this.props;
     return  mode === VIEW_MODE && (
-        <div style={{ marginBottom: 16, textAlign: 'right' }}>
+        <div style={{ marginBottom: 10, textAlign: 'right' }}>
           <h2 style={{float: 'left' }}>{title}</h2>
           <Input size="large" placeholder="Search..." defaultValue={search} className="search-box"
                  style={{width: 'calc(100% - 200px)', float: 'left'}}

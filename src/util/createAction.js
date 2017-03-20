@@ -40,13 +40,16 @@ export default function generateAction({module, api}) {
 
   };
 
-  action.fetch = ({url, page = '', sortField = '', sortOrder = '', search} = {}) => async (dispatch, getState) => {
+  action.fetch = ({url, page, sortField = '', sortOrder = '', search} = {}, key) => async (dispatch, getState) => {
     if(typeof search === 'undefined'){
       search = getState()[module].search
     }
+    if(typeof page === 'undefined'){
+      page = getState()[module].page
+    }
     try {
       dispatch(action.fetchStart());
-      let data = await fetchWrapper(`${url || api}?page=${page}&search=${search || ''}&sortBy=${sortField}&order=${sortOrder}`);
+      let data = await fetchWrapper(`${url || api}?page=${page || 1}&search=${search || ''}&sortBy=${sortField}&order=${sortOrder}`);
       dispatch(action.fetchSuccess(data, page, search));
     } catch(error) {
       dispatch(action.fetchError(error));

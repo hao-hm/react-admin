@@ -1,28 +1,43 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux';
-import { Button } from 'antd';
 import action from '../actions';
 import selector from '../selector';
-import {VIEW_MODE, CREATE_MODE} from '../../util/actionType';
+import AppHeader from '../../common/AppHeader';
+import ProductFilter from './ProductFilter';
+import {CREATE_MODE} from '../../util/actionType';
 
-const ProductHeader = ({action, mode}) => {
-
-  const onCreateClick = ()=>{
-    action.changeMode(CREATE_MODE)
+const ProductHeader = ({action, mode, search}) => {
+  const headerData = {
+    title: 'Product',
+    buttons: [
+      {name: 'Create', type: 'primary', onClick: () => action.changeMode(CREATE_MODE)}
+    ],
+    mode,
+    search,
+    onSearch: function (value) {
+      action.fetch({search: value})
+    }
   };
-
-  return mode === VIEW_MODE && (
-    <div style={{ marginBottom: 16, textAlign: 'right' }}>
-      <h2 style={{float: 'left' }}>Products</h2>
-      <Button type="primary" onClick={onCreateClick}>Create</Button>
+  return (
+    <div>
+      <ProductFilter/>
+      <AppHeader {...headerData}/>
     </div>
-  )
+  );
 };
 
+//prop types
+ProductHeader.propTypes = {
+  action: PropTypes.object.isRequired,
+  mode: PropTypes.string.isRequired
+};
+
+///////////////////
 const mapStateToProps = (state) => {
   return {
-    mode: selector.getCurrentMode(state)
+    mode: selector.getCurrentMode(state),
+    search: selector.getSearch(state)
   };
 };
 

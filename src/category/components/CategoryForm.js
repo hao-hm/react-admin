@@ -53,6 +53,7 @@ class CategoryForm extends Component {
     const state = this.state;
     return (
       <Form onSubmit={this.handleSubmit}>
+        <h2>{this.isCreate()? 'Create Category' : 'Edit Category'}</h2>
         <FormItem {...formItemLayout} label="Name">
           {getFieldDecorator('name', {
             rules: [{ required: true, message: 'Please input category name!' }],

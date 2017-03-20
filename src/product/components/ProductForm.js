@@ -18,7 +18,7 @@ class ProductForm extends Component {
     this.state = {
       name: current.name,
       description: current.description,
-      categories: current.categories
+      categoryId: current.categoryId
     };
   }
   componentWillMount() {
@@ -55,7 +55,7 @@ class ProductForm extends Component {
   };
 
   handleChangeCategories = (value) => {
-    console.log(value)
+    console.log(value);
   };
 
   render() {
@@ -67,47 +67,49 @@ class ProductForm extends Component {
     const state = this.state;
 
     return (
-      <Form onSubmit={this.handleSubmit}>
-        <FormItem {...formItemLayout} label="Name">
-          {getFieldDecorator('name', {
-            rules: [{ required: true, message: 'Please input product name!' }],
-            initialValue: state.name
-          })(
-            <Input />
-          )}
-        </FormItem>
+      <div>
+        <h2>{this.isCreate()? 'Create Product' : 'Edit Product'}</h2>
+        <Form onSubmit={this.handleSubmit}>
+          <FormItem {...formItemLayout} label="Name">
+            {getFieldDecorator('name', {
+              rules: [{ required: true, message: 'Please input product name!' }],
+              initialValue: state.name
+            })(
+              <Input />
+            )}
+          </FormItem>
 
-        <FormItem {...formItemLayout} label="Description">
-          {getFieldDecorator('description', {
-            rules: [{ required: true, message: 'Please input product description!' }],
-            initialValue: state.description
-          })(
-            <Input />
-          )}
-        </FormItem>
+          <FormItem {...formItemLayout} label="Description">
+            {getFieldDecorator('description', {
+              rules: [{ required: true, message: 'Please input product description!' }],
+              initialValue: state.description
+            })(
+              <Input />
+            )}
+          </FormItem>
 
-        <FormItem {...formItemLayout} label="Categories">
-          {getFieldDecorator('categories', {
-            rules: [{ required: true, message: 'Please select categories!' }],
-            initialValue: state.categories
-          })(
-            <Select
-              multiple
-              placeholder="Please select"
-              onChange={this.handleChangeCategories}
-            >
-              {this.props.categories.map((category) => (
-                <Option key={category.id}>{category.name}</Option>
-              ))}
-            </Select>
-          )}
-        </FormItem>
+          <FormItem {...formItemLayout} label="Categories">
+            {getFieldDecorator('categoryId', {
+              rules: [{ required: true, message: 'Please select categories!' }],
+              initialValue: state.categoryId
+            })(
+              <Select
+                placeholder="Please select"
+                onChange={this.handleChangeCategories}
+              >
+                {this.props.categories.map((category) => (
+                  <Option key={category.id}>{category.name}</Option>
+                ))}
+              </Select>
+            )}
+          </FormItem>
 
-        <FormItem wrapperCol={{ span: 8, offset: 4 }}>
-          <Button type="primary" loading={this.props.loading > 0} htmlType="submit">Submit</Button>
-          <Button onClick={this.handleCancel}>Cancel</Button>
-        </FormItem>
-      </Form>
+          <FormItem wrapperCol={{ span: 8, offset: 4 }}>
+            <Button type="primary" loading={this.props.loading > 0} htmlType="submit">Submit</Button>
+            <Button onClick={this.handleCancel}>Cancel</Button>
+          </FormItem>
+        </Form>
+      </div>
     );
   }
 }
