@@ -22,7 +22,7 @@ class AppHeader extends Component {
     return  mode === VIEW_MODE && (
         <div style={{ marginBottom: 10, textAlign: 'right' }}>
           <h2 style={{float: 'left' }}>{title}</h2>
-          <Input size="large" placeholder="Search..." defaultValue={search} className="search-box"
+          <Input size="large" placeholder="Search all..." defaultValue={search} className="search-box"
                  style={{width: 'calc(100% - 200px)', float: 'left'}}
                  prefix={<Icon type="search" />} onChange={this.handleChange} />
           {buttons.map((button, i) => (

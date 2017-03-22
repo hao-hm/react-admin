@@ -21,8 +21,8 @@ const ProductHeader = ({action, mode, search}) => {
   };
   return (
     <div>
-      <ProductFilter/>
       <AppHeader {...headerData}/>
+      <ProductFilter/>
     </div>
   );
 };

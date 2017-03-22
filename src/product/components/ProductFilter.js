@@ -21,7 +21,7 @@ class ProductFilter extends Component {
 
   render() {
     return this.props.mode === VIEW_MODE &&(
-      <Card style={{marginBottom: 10}}>
+      <div style={{marginBottom: 10}}>
         <Select
           style={{width: 200}}
           placeholder="Please select"
@@ -33,7 +33,7 @@ class ProductFilter extends Component {
             <Option key={category.id}>{category.name}</Option>
           ))}
         </Select>
-      </Card>
+      </div>
     );
   }
 }
