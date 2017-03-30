@@ -106,7 +106,7 @@ class ProductForm extends Component {
 
           <FormItem wrapperCol={{ span: 8, offset: 4 }}>
             <Button type="primary" loading={this.props.loading > 0} htmlType="submit">Submit</Button>
-            <Button onClick={this.handleCancel}>Cancel</Button>
+            <Button style={{ marginLeft: 8 }} onClick={this.handleCancel}>Cancel</Button>
           </FormItem>
         </Form>
       </div>

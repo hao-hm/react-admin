@@ -21,9 +21,9 @@ class CategoryForm extends Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         if(this.isCreate()){
-          this.props.action.create({request: values})
+          this.props.action.create({body: values})
         }else{
-          this.props.action.update({key: this.props.current.id,request: values});
+          this.props.action.update({key: this.props.current.id,body: values});
           this.props.action.setCurrent(null);
         }
 
@@ -74,7 +74,7 @@ class CategoryForm extends Component {
 
         <FormItem wrapperCol={{ span: 8, offset: 4 }}>
           <Button type="primary" loading={this.props.loading} htmlType="submit">Submit</Button>
-          <Button onClick={this.handleCancel}>Cancel</Button>
+          <Button style={{ marginLeft: 8 }} onClick={this.handleCancel}>Cancel</Button>
         </FormItem>
       </Form>
     );

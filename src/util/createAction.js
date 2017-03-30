@@ -1,5 +1,6 @@
 import createActionType, {VIEW_MODE} from './actionType';
 import fetchWrapper from './fetchWrapper';
+import callAPI from './callAPI';
 
 export function createAction(type, ...argNames) {
   return function(...args) {
@@ -49,7 +50,7 @@ export default function generateAction({module, api}) {
     }
     try {
       dispatch(action.fetchStart());
-      let data = await fetchWrapper(`${url || api}?page=${page || 1}&search=${search || ''}&sortBy=${sortField}&order=${sortOrder}`);
+      let data = await callAPI(`${url || api}?page=${page || 1}&search=${search || ''}&sortBy=${sortField}&order=${sortOrder}`);
       dispatch(action.fetchSuccess(data, page, search));
     } catch(error) {
       dispatch(action.fetchError(error));
@@ -59,7 +60,7 @@ export default function generateAction({module, api}) {
   action.delete = ({url, key}) => async (dispatch, getState) => {
     try {
       dispatch(action.deleteStart());
-      let data = await fetchWrapper(`${url || api}/${key}`, 'delete');
+      let data = await callAPI(`${url || api}/${key}`, {method: 'delete'});
       dispatch(action.deleteSuccess());
       const currentPage = getState()[module].page;
       dispatch(action.fetch({page: currentPage}));
@@ -69,10 +70,10 @@ export default function generateAction({module, api}) {
     }
   };
 
-  action.create = ({url, request}) => async (dispatch) => {
+  action.create = ({url, body}) => async (dispatch) => {
     try {
       dispatch(action.createStart());
-      let data = await fetchWrapper(url || api, 'post', request);
+      let data = await callAPI(url || api, {method: 'post', body});
       dispatch(action.createSuccess(data));
       dispatch(action.changeMode(VIEW_MODE));
       // dispatch(action.fetch());
@@ -81,10 +82,10 @@ export default function generateAction({module, api}) {
     }
   };
 
-  action.update = ({url, key, request}) => async (dispatch) => {
+  action.update = ({url, key, body}) => async (dispatch) => {
     try {
       dispatch(action.updateStart());
-      let data = await fetchWrapper(`${url || api}/${key}`, 'put', request);
+      let data = await callAPI(`${url || api}/${key}`, {method: 'put', body});
       dispatch(action.updateSuccess(data));
       dispatch(action.changeMode(VIEW_MODE));
       // dispatch(action.fetch());
